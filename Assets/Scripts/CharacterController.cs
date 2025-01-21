@@ -10,6 +10,7 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private float _speed = 1.0f;
     [SerializeField] private float _acceleration = 0.1f;
+    [SerializeField] private bool _canMove = true;
 
     private Vector2 _targetPos;
 
@@ -32,9 +33,6 @@ public class CharacterController : MonoBehaviour
 
     private void Update()
     {
-        //target acquired when within detection range
-        //AcquireTarget()
-
         //target overridden to mouseposition during leftclick
         if (Input.GetMouseButton(0))
         {
@@ -46,6 +44,9 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //target acquired when within detection range
+        //AcquireTarget()
+
         //while has target, moves towards target
         MoveTowardsTarget();
 
@@ -58,11 +59,19 @@ public class CharacterController : MonoBehaviour
     {
         Vector2 direction = (_targetPos - _rb.position);
 
-        _rb.AddForce(direction * _acceleration);
+        // calculates desirection movement velocity
+        Vector2 targetVelocity = direction * _speed;
+        if (!_canMove) targetVelocity = Vector2.zero;
+
+        // calculates acceleration required to reach desired velocity
+        Vector2 velocityDiff = targetVelocity - _rb.linearVelocity;
+        Vector3 acceleration = velocityDiff * _acceleration;
+
+        _rb.AddForce(acceleration * _rb.mass);
     }
 
     private void AcquireTarget()
     { 
-    
+        
     }
 }
