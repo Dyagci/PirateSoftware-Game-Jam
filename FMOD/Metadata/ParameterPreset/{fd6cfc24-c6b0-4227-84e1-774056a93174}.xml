@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{fd6cfc24-c6b0-4227-84e1-774056a93174}">
+		<property name="name">
+			<value>SFXVolume</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8e625b6a-1e5f-4f73-8665-167b8aba95b9}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5ff296e5-5bac-4299-909b-66ff6187f0e1}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5ff296e5-5bac-4299-909b-66ff6187f0e1}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>
