@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class CharacterController : MonoBehaviour
@@ -24,13 +24,15 @@ public class CharacterController : MonoBehaviour
     [field: Header("General")]
     [SerializeField] private bool _canMove = true;
     [SerializeField] private bool _canAttack = true;
-    [SerializeField] private bool _isZombie = true;
+    [SerializeField] public bool IsZombie = true;
 
     private float _speed;
     private float _speedMax;
     private float _acceleration;
     private Vector2 _targetPos;
     private bool _headThrown = false;
+
+    UnityEvent m_CountChange;
 
     private void OnValidate()
     {
@@ -40,15 +42,18 @@ public class CharacterController : MonoBehaviour
 
     private void Start()
     {
+        if (m_CountChange == null)
+            m_CountChange = new UnityEvent();
+
         _targetPos = transform.position;
         StateCheck();
     }
 
     private void StateCheck()
     {
-        _zombieSprite.SetActive(_isZombie);
-        _humanSprite.SetActive(!_isZombie);
-        if (_isZombie)
+        _zombieSprite.SetActive(IsZombie);
+        _humanSprite.SetActive(!IsZombie);
+        if (IsZombie)
         {
             _speed = _zombieSpeed;
             _speedMax = _zombieSpeedMax;
@@ -65,14 +70,14 @@ public class CharacterController : MonoBehaviour
     private void Update()
     {
         //target overridden to mouseposition during leftclick
-        if (Input.GetMouseButton(0) && _isZombie)
+        if (Input.GetMouseButton(0) && IsZombie)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _targetPos = mousePosition;
         }
 
         //Head throw disables zombie
-        if (Input.GetMouseButton(1) && _isZombie && !_headThrown)
+        if (Input.GetMouseButton(1) && IsZombie && !_headThrown)
         {
             _canMove = false;
             _canAttack = false;
@@ -82,6 +87,8 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        StateCheck();
+
         //target acquired when within detection range
         //AcquireTarget()
 
@@ -113,6 +120,6 @@ public class CharacterController : MonoBehaviour
 
     private void AcquireTarget()
     { 
-        
+
     }
 }
