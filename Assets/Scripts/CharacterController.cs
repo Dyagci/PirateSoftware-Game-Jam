@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -22,6 +24,8 @@ public class CharacterController : MonoBehaviour
 
 
     [field: Header("General")]
+    [SerializeField] private LayerMask _characterLayer;
+    [SerializeField] private float _infectionRadius = 1f;
     [SerializeField] private bool _canMove = true;
     [SerializeField] private bool _canAttack = true;
     [SerializeField] public bool IsZombie = true;
@@ -121,5 +125,14 @@ public class CharacterController : MonoBehaviour
     private void AcquireTarget()
     { 
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<CharacterController>().IsZombie)
+        {
+            IsZombie = true;
+            StateCheck();
+        }
     }
 }
