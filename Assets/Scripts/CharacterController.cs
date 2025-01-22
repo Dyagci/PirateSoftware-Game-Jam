@@ -1,6 +1,5 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class CharacterController : MonoBehaviour
@@ -10,17 +9,10 @@ public class CharacterController : MonoBehaviour
 
     [SerializeField] private float _speed = 1.0f;
     [SerializeField] private float _speedMax = 3.0f;
-    [SerializeField] private float _acceleration = 5f;
+    [SerializeField] private float _acceleration = 5.0f;
     [SerializeField] private bool _canMove = true;
 
     private Vector2 _targetPos;
-
-    UnityEvent m_LeftClick;
-
-    public void Walk(Vector2 moveTarget, float moveSpeed)
-    {
-        //_rb.AddForce( * _acceleration)
-    }
 
     private void OnValidate()
     {
@@ -31,11 +23,6 @@ public class CharacterController : MonoBehaviour
     private void Start()
     {
         _targetPos = transform.position;
-
-        //if (m_LeftClick == null)
-        //    m_LeftClick = new UnityEvent();
-
-        //m_LeftClick.AddListener(MouseTarget);
     }
 
     private void Update()
