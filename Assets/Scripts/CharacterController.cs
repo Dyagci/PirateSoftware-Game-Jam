@@ -23,12 +23,14 @@ public class CharacterController : MonoBehaviour
 
     [field: Header("General")]
     [SerializeField] private bool _canMove = true;
+    [SerializeField] private bool _canAttack = true;
     [SerializeField] private bool _isZombie = true;
 
     private float _speed;
     private float _speedMax;
     private float _acceleration;
     private Vector2 _targetPos;
+    private bool _headThrown = false;
 
     private void OnValidate()
     {
@@ -68,8 +70,15 @@ public class CharacterController : MonoBehaviour
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _targetPos = mousePosition;
         }
-    }
 
+        //Head throw disables zombie
+        if (Input.GetMouseButton(1) && _isZombie && !_headThrown)
+        {
+            _canMove = false;
+            _canAttack = false;
+            _headThrown = true;
+        }
+    }
 
     private void FixedUpdate()
     {
