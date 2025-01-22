@@ -9,7 +9,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private PlayerInput _playerInput;
 
     [SerializeField] private float _speed = 1.0f;
-    [SerializeField] private float _acceleration = 0.1f;
+    [SerializeField] private float _speedMax = 3.0f;
+    [SerializeField] private float _acceleration = 5f;
     [SerializeField] private bool _canMove = true;
 
     private Vector2 _targetPos;
@@ -19,6 +20,12 @@ public class CharacterController : MonoBehaviour
     public void Walk(Vector2 moveTarget, float moveSpeed)
     {
         //_rb.AddForce( * _acceleration)
+    }
+
+    private void OnValidate()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _playerInput = GetComponent<PlayerInput>();
     }
 
     private void Start()
@@ -65,9 +72,12 @@ public class CharacterController : MonoBehaviour
 
         // calculates acceleration required to reach desired velocity
         Vector2 velocityDiff = targetVelocity - _rb.linearVelocity;
-        Vector3 acceleration = velocityDiff * _acceleration;
+        Vector2 acceleration = velocityDiff * _acceleration;
 
         _rb.AddForce(acceleration * _rb.mass);
+        
+        //slow if reaches max speed
+        if (_rb.linearVelocity.magnitude > _speedMax) _rb.linearVelocity = Vector2.ClampMagnitude(_rb.linearVelocity, _speedMax);
     }
 
     private void AcquireTarget()
