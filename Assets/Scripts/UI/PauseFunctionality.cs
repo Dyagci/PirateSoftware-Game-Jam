@@ -6,6 +6,12 @@ public class PauseFunctionality : MonoBehaviour
     [SerializeField] private string _gameplayActionMapName = "Player";
     [SerializeField] private string _pauseActionMapName = "UI";
 
+    private void Start()
+    {
+        SetTimeScale(1.0f);
+        SwitchActionMap(_gameplayActionMapName);
+    }
+
     public void SetTimeScale(float timeScale)
     {
         Time.timeScale = timeScale;
@@ -30,11 +36,6 @@ public class PauseFunctionality : MonoBehaviour
         {
             playerInput.SwitchCurrentActionMap(mapName);
         }
-    }
-
-    private void Start()
-    {
-        SetTimeScale(1.0f);
     }
 
     public void Pause()
