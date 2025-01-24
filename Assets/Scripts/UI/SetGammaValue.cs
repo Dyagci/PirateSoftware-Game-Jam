@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class SetGammaValue : SetSliderValue
 {
@@ -19,6 +20,17 @@ public class SetGammaValue : SetSliderValue
         else
         {
             Debug.LogWarning("No LiftGammaGain component found on Volume!", _profile);
+        }
+    }
+
+    private void OnEnable()
+    {
+        if(_profile.TryGet(out LiftGammaGain liftGammaGain) && TryGetComponent(out Slider slider))
+        {
+            float currentGamma = liftGammaGain.gamma.value.x;
+            float sliderValue = OutputValueToSliderValue(currentGamma);
+
+            slider.SetValueWithoutNotify(sliderValue);
         }
     }
 }

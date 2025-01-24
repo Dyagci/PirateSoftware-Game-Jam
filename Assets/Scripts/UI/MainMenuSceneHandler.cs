@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MainMenuSceneHandler : MonoBehaviour
+public class MainMenuSceneHandler : SceneHandler
 {
     [SerializeField] private Button[] _levelButtons;
     private int _currentLevel;
@@ -20,15 +20,5 @@ public class MainMenuSceneHandler : MonoBehaviour
                 _levelButtons[i].interactable = false;
             }
         }
-    }
-
-    public void LoadScene(int sceneNo)
-    {
-        SceneManager.LoadScene(sceneNo);
-    }
-
-    public void QuitGame()
-    { 
-        Application.Quit();
     }
 }
