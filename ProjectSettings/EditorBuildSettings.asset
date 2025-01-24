@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 9d5ec38cfdcd8f14e9fbd83b841955d9
+  - enabled: 1
+    path: Assets/Scenes/SystemTestGym.unity
+    guid: 238b23847ebe6f6489c351821284cae4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
