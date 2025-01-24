@@ -2,10 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InputActionListener : MonoBehaviour
 {
     [SerializeField] private InputActionReference _actionReference;
+    [SerializeField] private Button _activateButton;
 
     public UnityEvent OnInput;
 
@@ -26,6 +28,12 @@ public class InputActionListener : MonoBehaviour
     }
 
     private void Performed(InputAction.CallbackContext context)
+    {
+        OnInput.Invoke();
+        _activateButton?.onClick.Invoke();
+    }
+
+    public void ForcePerform()
     {
         OnInput.Invoke();
     }
